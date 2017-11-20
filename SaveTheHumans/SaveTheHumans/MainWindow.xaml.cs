@@ -32,7 +32,7 @@ namespace SaveTheHumans
             InitializeComponent();
 
             enemyTimer.Tick += EnemyTimer_Tick;
-            enemyTimer.Interval = TimeSpan.FromSeconds(.3);
+            enemyTimer.Interval = TimeSpan.FromSeconds(2);
 
             targetTimer.Tick += TargetTimer_Tick;
             targetTimer.Interval = TimeSpan.FromSeconds(.1);
@@ -42,9 +42,7 @@ namespace SaveTheHumans
         {
             progressBar.Value += 1;
             if(progressBar.Value >= progressBar.Maximum)
-            {
                 EndTheGame();
-            }
         }
 
         private void EndTheGame()
@@ -116,7 +114,7 @@ namespace SaveTheHumans
             storyboard.Begin();
         }
 
-        private void human_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void human_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if(enemyTimer.IsEnabled)
             {
@@ -143,7 +141,7 @@ namespace SaveTheHumans
         {
             if(humanCaptured)
             {
-                Point pointerPosition = e.GetPosition(human);
+                Point pointerPosition = e.GetPosition(null);
                 Point relativePosition = grid.TransformToVisual(playArea).Transform(pointerPosition);
                 if((Math.Abs(relativePosition.X - Canvas.GetLeft(human))> human.ActualWidth * 3)
                     || (Math.Abs(relativePosition.Y - Canvas.GetTop(human)) > human.ActualHeight * 3))
